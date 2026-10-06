@@ -41,10 +41,6 @@
         <option value="">組 / wszystkie</option>
       </select>
 
-      <select id="filterOther">
-        <option value="">他の / wszystkie</option>
-      </select>
-
       <input
         type="text"
         id="filterName"
@@ -56,13 +52,12 @@
       <table>
         <thead>
           <tr>
-            <th>Email</th>
-            <th>名前</th>
-            <th>学校名</th>
-            <th>年</th>
-            <th>組</th>
-            <th>他の</th>
-            <th>Role</th>
+            <th><button type="button" class="sort-btn" data-sort="email">Email</button></th>
+            <th><button type="button" class="sort-btn" data-sort="name">名前</button></th>
+            <th><button type="button" class="sort-btn" data-sort="schoolName">学校名</button></th>
+            <th><button type="button" class="sort-btn" data-sort="grade">年</button></th>
+            <th><button type="button" class="sort-btn" data-sort="className">組</button></th>
+            <th><button type="button" class="sort-btn" data-sort="role">Role</button></th>
             <th>Akcje</th>
           </tr>
         </thead>
@@ -105,11 +100,6 @@
       <label>
         組
         <input type="text" id="className" />
-      </label>
-
-      <label>
-        他の
-        <input type="text" id="other" />
       </label>
 
       <label>
