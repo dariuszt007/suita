@@ -36,22 +36,42 @@ const role = document.getElementById("role");
 
 async function loadTeachers() {
   try {
-    const res = await fetch(DATA_URL + "?t=" + Date.now());
+    const res = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" });
     if (!res.ok) throw new Error("Nie udało się wczytać teachers.json");
-    teachers = await res.json();
-    if (!Array.isArray(teachers)) teachers = [];
-    populateFilterOptions();
+    const data = await res.json();
+    teachers = Array.isArray(data) ? normalizeTeachers(data) : [];
+    populateFilterOptionsFromCurrentTeachers();
     applyFilters();
   } catch (err) {
     alert(err.message);
   }
 }
 
+function normalizeTeachers(data) {
+  return data.map((row, index) => ({
+    id: row.id || safeId(index),
+    email: row.email || row.lgate || "",
+    name: row.name || row["名前"] || "",
+    schoolName: row.schoolName || row["学校名"] || "",
+    grade: row.grade || row["年"] || "",
+    className: row.className || row["組"] || row.group || "",
+    other: row.other || row["他の"] || "",
+    role: row.role || ""
+  }));
+}
+
+function safeId(index = 0) {
+  if (window.crypto && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return "id_" + Date.now() + "_" + index;
+}
+
 function syncJsonEditor() {
   jsonOutput.value = JSON.stringify(teachers, null, 2);
 }
 
-function populateFilterOptions() {
+function populateFilterOptionsFromCurrentTeachers() {
   fillSelect(filterSchool, "学校名 / wszystkie szkoły", uniqueValues(teachers, "schoolName"));
   fillSelect(filterGrade, "年 / wszystkie", uniqueValues(teachers, "grade"));
   fillSelect(filterClass, "組 / wszystkie", uniqueValues(teachers, "className"));
@@ -82,7 +102,11 @@ function fillSelect(selectEl, defaultLabel, values) {
     selectEl.appendChild(option);
   });
 
-  selectEl.value = values.includes(currentValue) ? currentValue : "";
+  if (values.includes(currentValue)) {
+    selectEl.value = currentValue;
+  } else {
+    selectEl.value = "";
+  }
 }
 
 function applyFilters() {
@@ -97,7 +121,9 @@ function applyFilters() {
     const gradeMatch = !gradeVal || String(t.grade || "").toLowerCase() === gradeVal;
     const classMatch = !classVal || String(t.className || "").toLowerCase() === classVal;
     const otherMatch = !otherVal || String(t.other || "").toLowerCase() === otherVal;
-    const nameMatch = String(t.name || "").toLowerCase().includes(nameVal);
+    const nameMatch =
+      String(t.name || "").toLowerCase().includes(nameVal) ||
+      String(t.email || "").toLowerCase().includes(nameVal);
 
     return schoolMatch && gradeMatch && classMatch && otherMatch && nameMatch;
   });
@@ -121,8 +147,8 @@ function renderTable() {
       <td>${escapeHtml(t.other || "")}</td>
       <td>${escapeHtml(t.role || "")}</td>
       <td>
-        <button class="action-btn" data-edit="${t.id}">Edytuj</button>
-        <button class="action-btn delete-btn" data-delete="${t.id}">Usuń</button>
+        <button type="button" class="action-btn" data-edit="${t.id}">Edytuj</button>
+        <button type="button" class="action-btn delete-btn" data-delete="${t.id}">Usuń</button>
       </td>
     `;
 
@@ -139,7 +165,7 @@ function renderTable() {
 }
 
 function escapeHtml(str) {
-  return String(str)
+  return String(str || "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
@@ -179,7 +205,7 @@ function openEditDialog(id) {
 function deleteTeacher(id) {
   if (!confirm("Na pewno usunąć ten wpis?")) return;
   teachers = teachers.filter(t => String(t.id) !== String(id));
-  populateFilterOptions();
+  populateFilterOptionsFromCurrentTeachers();
   applyFilters();
 }
 
@@ -187,7 +213,7 @@ teacherForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const payload = {
-    id: teacherId.value || crypto.randomUUID(),
+    id: teacherId.value || safeId(),
     email: email.value.trim(),
     name: nameField.value.trim(),
     schoolName: schoolName.value.trim(),
@@ -206,7 +232,7 @@ teacherForm.addEventListener("submit", (e) => {
   }
 
   teacherDialog.close();
-  populateFilterOptions();
+  populateFilterOptionsFromCurrentTeachers();
   applyFilters();
 });
 
@@ -221,24 +247,12 @@ reloadBtn.addEventListener("click", loadTeachers);
 filterName.addEventListener("input", applyFilters);
 
 exportBtn.addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify(teachers, null, 2)], {
-    type: "application/json"
-  });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "teachers.json";
-  a.click();
-  URL.revokeObjectURL(a.href);
+  downloadTextFile("teachers.json", JSON.stringify(teachers, null, 2), "application/json");
 });
 
 exportCsvBtn.addEventListener("click", () => {
   const csv = toCSV(teachers);
-  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "teachers.csv";
-  a.click();
-  URL.revokeObjectURL(a.href);
+  downloadTextFile("teachers.csv", csv, "text/csv;charset=utf-8");
 });
 
 downloadSampleCsvBtn.addEventListener("click", () => {
@@ -249,16 +263,8 @@ downloadSampleCsvBtn.addEventListener("click", () => {
     ["ruh302@o365.suita.ed.jp", "安食 葵", "第二小学校", "2", "1", "他校兼務", ""]
   ];
 
-  const csv = sampleRows
-    .map(row => row.map(csvEscape).join(","))
-    .join("\n");
-
-  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "sample_teachers.csv";
-  a.click();
-  URL.revokeObjectURL(a.href);
+  const csv = "\uFEFF" + sampleRows.map(row => row.map(csvEscape).join(",")).join("\n");
+  downloadTextFile("sample_teachers.csv", csv, "text/csv;charset=utf-8");
 });
 
 copyBtn.addEventListener("click", async () => {
@@ -274,8 +280,8 @@ jsonOutput.addEventListener("change", () => {
   try {
     const parsed = JSON.parse(jsonOutput.value);
     if (!Array.isArray(parsed)) throw new Error();
-    teachers = parsed;
-    populateFilterOptions();
+    teachers = normalizeTeachers(parsed);
+    populateFilterOptionsFromCurrentTeachers();
     applyFilters();
   } catch {
     alert("Niepoprawny JSON.");
@@ -287,32 +293,38 @@ csvFile.addEventListener("change", async (e) => {
   const file = e.target.files[0];
   if (!file) return;
 
-  const text = await file.text();
-  const rows = parseCSV(text);
+  try {
+    const text = await file.text();
+    const rows = parseCSV(text);
 
-  teachers = rows.map((row, index) => ({
-    id: row.id || crypto.randomUUID() || String(index + 1),
-    email: row.email || row.lgate || "",
-    name: row.name || row["名前"] || "",
-    schoolName: row.schoolName || row["学校名"] || "",
-    grade: row.grade || row["年"] || "",
-    className: row.className || row["組"] || row.group || "",
-    other: row.other || row["他の"] || "",
-    role: row.role || ""
-  }));
+    teachers = rows.map((row, index) => ({
+      id: row.id || safeId(index),
+      email: row.email || row.lgate || "",
+      name: row.name || row["名前"] || "",
+      schoolName: row.schoolName || row["学校名"] || "",
+      grade: row.grade || row["年"] || "",
+      className: row.className || row["組"] || row.group || "",
+      other: row.other || row["他の"] || "",
+      role: row.role || ""
+    }));
 
-  populateFilterOptions();
-  applyFilters();
+    populateFilterOptionsFromCurrentTeachers();
+    applyFilters();
+    alert("CSV został zaimportowany.");
+  } catch (err) {
+    alert("Nie udało się odczytać CSV.");
+  }
+
   e.target.value = "";
 });
 
 function parseCSV(text) {
-  const lines = text.trim().split(/\r?\n/);
+  const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
   if (!lines.length) return [];
 
   const headers = splitCSVLine(lines[0]).map(h => h.trim());
 
-  return lines.slice(1).filter(Boolean).map(line => {
+  return lines.slice(1).map(line => {
     const values = splitCSVLine(line);
     const obj = {};
     headers.forEach((header, i) => {
@@ -363,7 +375,23 @@ function toCSV(data) {
     ...data.map(item => headers.map(h => item[h] ?? ""))
   ];
 
-  return rows.map(row => row.map(csvEscape).join(",")).join("\n");
+  return "\uFEFF" + rows.map(row => row.map(csvEscape).join(",")).join("\n");
+}
+
+function downloadTextFile(filename, content, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.style.display = "none";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 loadTeachers();
