@@ -1,115 +1,14 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Lista nauczycieli</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="app">
-    <h1>Lista nauczycieli</h1>
+<div class="toolbar">
+  <button type="button" id="reloadBtn">Odśwież z GitHub</button>
 
-    <div class="toolbar">
-      <button id="reloadBtn">Odśwież z GitHub</button>
+  <label class="file-label">
+    Import CSV
+    <input type="file" id="csvFile" accept=".csv" hidden />
+  </label>
 
-      <label class="file-label">
-        Import CSV
-        <input type="file" id="csvFile" accept=".csv" hidden />
-      </label>
-
-      <button id="downloadSampleCsvBtn">Pobierz przykładowy CSV</button>
-      <button id="exportBtn">Eksport JSON</button>
-      <button id="exportCsvBtn">Eksport CSV</button>
-      <button id="copyBtn">Kopiuj JSON</button>
-      <button id="addBtn">Dodaj nauczyciela</button>
-    </div>
-
-    <div class="filters">
-      <select id="filterSchool">
-        <option value="">学校名 / wszystkie szkoły</option>
-      </select>
-
-      <select id="filterGrade">
-        <option value="">年 / wszystkie</option>
-      </select>
-
-      <select id="filterClass">
-        <option value="">組 / wszystkie</option>
-      </select>
-
-      <select id="filterOther">
-        <option value="">他の / wszystkie</option>
-      </select>
-
-      <input type="text" id="filterName" placeholder="Imię / Nazwisko" />
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>名前</th>
-            <th>学校名</th>
-            <th>年</th>
-            <th>組</th>
-            <th>他の</th>
-            <th>Role</th>
-            <th>Akcje</th>
-          </tr>
-        </thead>
-        <tbody id="teacherTableBody"></tbody>
-      </table>
-    </div>
-
-    <div class="editor">
-      <h2>Edytor JSON</h2>
-      <textarea id="jsonOutput" spellcheck="false"></textarea>
-    </div>
-  </div>
-
-  <dialog id="teacherDialog">
-    <form id="teacherForm" method="dialog">
-      <h3 id="dialogTitle">Dodaj nauczyciela</h3>
-
-      <input type="hidden" id="teacherId" />
-
-      <label>Email
-        <input type="text" id="email" />
-      </label>
-
-      <label>名前
-        <input type="text" id="name" />
-      </label>
-
-      <label>学校名
-        <input type="text" id="schoolName" />
-      </label>
-
-      <label>年
-        <input type="text" id="grade" />
-      </label>
-
-      <label>組
-        <input type="text" id="className" />
-      </label>
-
-      <label>他の
-        <input type="text" id="other" />
-      </label>
-
-      <label>Role
-        <input type="text" id="role" />
-      </label>
-
-      <div class="dialog-actions">
-        <button type="button" id="cancelBtn">Anuluj</button>
-        <button type="submit">Zapisz</button>
-      </div>
-    </form>
-  </dialog>
-
-  <script src="app.js"></script>
-</body>
-</html>
+  <button type="button" id="downloadSampleCsvBtn">Pobierz przykładowy CSV</button>
+  <button type="button" id="exportBtn">Eksport JSON</button>
+  <button type="button" id="exportCsvBtn">Eksport CSV</button>
+  <button type="button" id="copyBtn">Kopiuj JSON</button>
+  <button type="button" id="addBtn">Dodaj nauczyciela</button>
+</div>
