@@ -2,6 +2,10 @@ const DATA_URL = "./teachers.json";
 
 let teachers = [];
 let filteredTeachers = [];
+let currentSort = {
+  key: "name",
+  direction: "asc"
+};
 
 const teacherTableBody = document.getElementById("teacherTableBody");
 const jsonOutput = document.getElementById("jsonOutput");
@@ -17,7 +21,6 @@ const downloadSampleCsvBtn = document.getElementById("downloadSampleCsvBtn");
 const filterSchool = document.getElementById("filterSchool");
 const filterGrade = document.getElementById("filterGrade");
 const filterClass = document.getElementById("filterClass");
-const filterOther = document.getElementById("filterOther");
 const filterName = document.getElementById("filterName");
 
 const teacherDialog = document.getElementById("teacherDialog");
@@ -31,7 +34,6 @@ const nameField = document.getElementById("name");
 const schoolName = document.getElementById("schoolName");
 const grade = document.getElementById("grade");
 const className = document.getElementById("className");
-const other = document.getElementById("other");
 const role = document.getElementById("role");
 
 async function loadTeachers() {
@@ -55,7 +57,6 @@ function normalizeTeachers(data) {
     schoolName: row.schoolName || row["学校名"] || "",
     grade: row.grade || row["年"] || "",
     className: row.className || row["組"] || row.group || "",
-    other: row.other || row["他の"] || "",
     role: row.role || ""
   }));
 }
@@ -75,7 +76,6 @@ function populateFilterOptionsFromCurrentTeachers() {
   fillSelect(filterSchool, "学校名 / wszystkie szkoły", uniqueValues(teachers, "schoolName"));
   fillSelect(filterGrade, "年 / wszystkie", uniqueValues(teachers, "grade"));
   fillSelect(filterClass, "組 / wszystkie", uniqueValues(teachers, "className"));
-  fillSelect(filterOther, "他の / wszystkie", uniqueValues(teachers, "other"));
 }
 
 function uniqueValues(data, key) {
@@ -113,23 +113,84 @@ function applyFilters() {
   const schoolVal = filterSchool.value.trim().toLowerCase();
   const gradeVal = filterGrade.value.trim().toLowerCase();
   const classVal = filterClass.value.trim().toLowerCase();
-  const otherVal = filterOther.value.trim().toLowerCase();
   const nameVal = filterName.value.trim().toLowerCase();
 
   filteredTeachers = teachers.filter(t => {
     const schoolMatch = !schoolVal || String(t.schoolName || "").toLowerCase() === schoolVal;
     const gradeMatch = !gradeVal || String(t.grade || "").toLowerCase() === gradeVal;
     const classMatch = !classVal || String(t.className || "").toLowerCase() === classVal;
-    const otherMatch = !otherVal || String(t.other || "").toLowerCase() === otherVal;
     const nameMatch =
       String(t.name || "").toLowerCase().includes(nameVal) ||
       String(t.email || "").toLowerCase().includes(nameVal);
 
-    return schoolMatch && gradeMatch && classMatch && otherMatch && nameMatch;
+    return schoolMatch && gradeMatch && classMatch && nameMatch;
   });
 
+  sortFilteredTeachers();
   renderTable();
   syncJsonEditor();
+  updateSortButtonsUI();
+}
+
+function sortFilteredTeachers() {
+  const { key, direction } = currentSort;
+
+  filteredTeachers.sort((a, b) => {
+    const aVal = String(a[key] || "").trim();
+    const bVal = String(b[key] || "").trim();
+
+    const aNum = Number(aVal);
+    const bNum = Number(bVal);
+    const bothNumeric = aVal !== "" && bVal !== "" && !Number.isNaN(aNum) && !Number.isNaN(bNum);
+
+    let result;
+    if (bothNumeric) {
+      result = aNum - bNum;
+    } else {
+      result = aVal.localeCompare(bVal, "ja", { sensitivity: "base" });
+    }
+
+    return direction === "asc" ? result : -result;
+  });
+}
+
+function setSort(key) {
+  if (currentSort.key === key) {
+    currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
+  } else {
+    currentSort.key = key;
+    currentSort.direction = "asc";
+  }
+
+  applyFilters();
+}
+
+function updateSortButtonsUI() {
+  const buttons = document.querySelectorAll(".sort-btn");
+
+  buttons.forEach(btn => {
+    const key = btn.dataset.sort;
+    const isActive = key === currentSort.key;
+
+    if (isActive) {
+      btn.textContent = `${getSortLabel(key)} ${currentSort.direction === "asc" ? "▲" : "▼"}`;
+    } else {
+      btn.textContent = getSortLabel(key);
+    }
+  });
+}
+
+function getSortLabel(key) {
+  const labels = {
+    email: "Email",
+    name: "名前",
+    schoolName: "学校名",
+    grade: "年",
+    className: "組",
+    role: "Role"
+  };
+
+  return labels[key] || key;
 }
 
 function renderTable() {
@@ -144,7 +205,6 @@ function renderTable() {
       <td>${escapeHtml(t.schoolName || "")}</td>
       <td>${escapeHtml(t.grade || "")}</td>
       <td>${escapeHtml(t.className || "")}</td>
-      <td>${escapeHtml(t.other || "")}</td>
       <td>${escapeHtml(t.role || "")}</td>
       <td>
         <button type="button" class="action-btn" data-edit="${t.id}">Edytuj</button>
@@ -181,7 +241,6 @@ function openAddDialog() {
   schoolName.value = "";
   grade.value = "";
   className.value = "";
-  other.value = "";
   role.value = "";
   teacherDialog.showModal();
 }
@@ -197,7 +256,6 @@ function openEditDialog(id) {
   schoolName.value = t.schoolName || "";
   grade.value = t.grade || "";
   className.value = t.className || "";
-  other.value = t.other || "";
   role.value = t.role || "";
   teacherDialog.showModal();
 }
@@ -219,7 +277,6 @@ teacherForm.addEventListener("submit", (e) => {
     schoolName: schoolName.value.trim(),
     grade: grade.value.trim(),
     className: className.value.trim(),
-    other: other.value.trim(),
     role: role.value.trim()
   };
 
@@ -240,11 +297,17 @@ cancelBtn.addEventListener("click", () => teacherDialog.close());
 addBtn.addEventListener("click", openAddDialog);
 reloadBtn.addEventListener("click", loadTeachers);
 
-[filterSchool, filterGrade, filterClass, filterOther].forEach(select => {
+[filterSchool, filterGrade, filterClass].forEach(select => {
   select.addEventListener("change", applyFilters);
 });
 
 filterName.addEventListener("input", applyFilters);
+
+document.querySelectorAll(".sort-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    setSort(btn.dataset.sort);
+  });
+});
 
 exportBtn.addEventListener("click", () => {
   downloadTextFile("teachers.json", JSON.stringify(teachers, null, 2), "application/json");
@@ -257,10 +320,10 @@ exportCsvBtn.addEventListener("click", () => {
 
 downloadSampleCsvBtn.addEventListener("click", () => {
   const sampleRows = [
-    ["email", "name", "schoolName", "grade", "className", "other", "role"],
-    ["fujiwara758@o365.suita.ed.jp", "藤原 光矢", "第一小学校", "3", "1", "支援", "担任"],
-    ["aoyama090@o365.suita.ed.jp", "青山 正道", "第一小学校", "3", "2", "", "副担任"],
-    ["ruh302@o365.suita.ed.jp", "安食 葵", "第二小学校", "2", "1", "他校兼務", ""]
+    ["email", "name", "schoolName", "grade", "className", "role"],
+    ["fujiwara758@o365.suita.ed.jp", "藤原 光矢", "第一小学校", "3", "1", "担任"],
+    ["aoyama090@o365.suita.ed.jp", "青山 正道", "第一小学校", "3", "2", "副担任"],
+    ["ruh302@o365.suita.ed.jp", "安食 葵", "第二小学校", "2", "1", ""]
   ];
 
   const csv = "\uFEFF" + sampleRows.map(row => row.map(csvEscape).join(",")).join("\n");
@@ -304,7 +367,6 @@ csvFile.addEventListener("change", async (e) => {
       schoolName: row.schoolName || row["学校名"] || "",
       grade: row.grade || row["年"] || "",
       className: row.className || row["組"] || row.group || "",
-      other: row.other || row["他の"] || "",
       role: row.role || ""
     }));
 
@@ -369,7 +431,7 @@ function csvEscape(value) {
 }
 
 function toCSV(data) {
-  const headers = ["email", "name", "schoolName", "grade", "className", "other", "role"];
+  const headers = ["email", "name", "schoolName", "grade", "className", "role"];
   const rows = [
     headers,
     ...data.map(item => headers.map(h => item[h] ?? ""))
