@@ -290,21 +290,11 @@
     "role": "教員"
   },
   {
-    "id": "450f8350-8998-403d-a9b7-bf7ea741eaff",
-    "email": "school05@o365.suita.ed.jp",
-    "name": "吹田南小学校",
-    "schoolName": "吹田南小学校",
-    "grade": "1",
-    "className": "",
-    "other": "",
-    "role": "教員"
-  },
-  {
     "id": "5e76a54d-5e98-46ea-850a-9b66da137792",
     "email": "imamura524@o365.suita.ed.jp",
     "name": "今村　圭一郎",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -314,7 +304,7 @@
     "email": "tagawa413@o365.suita.ed.jp",
     "name": "田川　幸希",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -324,7 +314,7 @@
     "email": "takeuchi360@o365.suita.ed.jp",
     "name": "竹内　彩華",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -334,7 +324,7 @@
     "email": "tsutsui041@o365.suita.ed.jp",
     "name": "筒井　典子",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -344,7 +334,7 @@
     "email": "higashi686@o365.suita.ed.jp",
     "name": "東　千夏",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -354,7 +344,7 @@
     "email": "moriyama681@o365.suita.ed.jp",
     "name": "森山　ほのか",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -364,7 +354,7 @@
     "email": "yasuda390@o365.suita.ed.jp",
     "name": "安田　大樹",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -374,7 +364,7 @@
     "email": "asaka448@o365.suita.ed.jp",
     "name": "浅香　武司",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -384,7 +374,7 @@
     "email": "ueda541@o365.suita.ed.jp",
     "name": "上田　和成",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -394,7 +384,7 @@
     "email": "gobara944@o365.suita.ed.jp",
     "name": "郷原　洋一",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -404,7 +394,7 @@
     "email": "seto594@o365.suita.ed.jp",
     "name": "瀨戸　純一",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -414,7 +404,7 @@
     "email": "doi008@o365.suita.ed.jp",
     "name": "土井　隆夫",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -424,7 +414,7 @@
     "email": "nishimiya280@o365.suita.ed.jp",
     "name": "西宮　真梨",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -444,7 +434,7 @@
     "email": "harada642@o365.suita.ed.jp",
     "name": "原田　敏文",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -454,7 +444,7 @@
     "email": "fukuda795@o365.suita.ed.jp",
     "name": "福田　蓉子",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -464,7 +454,7 @@
     "email": "fujisawa195@o365.suita.ed.jp",
     "name": "藤澤　亜希子",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -474,7 +464,7 @@
     "email": "maeeda944@o365.suita.ed.jp",
     "name": "前枝　真嘉",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -484,7 +474,7 @@
     "email": "matsushita724@o365.suita.ed.jp",
     "name": "松下　彩乃",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -494,7 +484,7 @@
     "email": "morishita208@o365.suita.ed.jp",
     "name": "森下　裕子",
     "schoolName": "吹田南小学校",
-    "grade": "1",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -564,7 +554,7 @@
     "email": "miyawaki537@o365.suita.ed.jp",
     "name": "宮脇　拓也",
     "schoolName": "吹田南小学校",
-    "grade": "3",
+    "grade": "理科",
     "className": "",
     "other": "",
     "role": "教員"
@@ -604,8 +594,8 @@
     "email": "nobuki020@o365.suita.ed.jp",
     "name": "延木　拓登",
     "schoolName": "吹田南小学校",
-    "grade": "4",
-    "className": "英語",
+    "grade": "英語",
+    "className": "",
     "other": "",
     "role": "教員"
   },
@@ -654,7 +644,7 @@
     "email": "kuroda970@o365.suita.ed.jp",
     "name": "黒田　純子",
     "schoolName": "吹田南小学校",
-    "grade": "5",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -664,7 +654,7 @@
     "email": "tsuji257@o365.suita.ed.jp",
     "name": "辻　貴久",
     "schoolName": "吹田南小学校",
-    "grade": "5",
+    "grade": "支援",
     "className": "",
     "other": "",
     "role": "教員"
@@ -714,8 +704,8 @@
     "email": "ichimura865@o365.suita.ed.jp",
     "name": "市村　真由美",
     "schoolName": "吹田南小学校",
-    "grade": "6",
-    "className": "理科",
+    "grade": "理科",
+    "className": "",
     "other": "",
     "role": "教員"
   },
@@ -746,6 +736,16 @@
     "schoolName": "吹田南小学校",
     "grade": "6",
     "className": "4",
+    "other": "",
+    "role": "教員"
+  },
+  {
+    "id": "ea3f14f3-5384-402b-8ad1-e2f04457061a",
+    "email": "sakata056@o365.suita.ed.jp",
+    "name": "坂田　京子",
+    "schoolName": "吹田南小学校",
+    "grade": "理科",
+    "className": "",
     "other": "",
     "role": "教員"
   }
