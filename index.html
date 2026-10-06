@@ -2,64 +2,106 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
   <title>Lista nauczycieli</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app">
-    <h1>Lista nauczycieli</h1>
+    <header class="topbar">
+      <div>
+        <h1>Lista nauczycieli</h1>
+        <p class="subtitle">GitHub Pages • import CSV • edycja • eksport JSON/CSV</p>
+      </div>
+      <div class="topbar-actions">
+        <button id="fullscreenBtn" type="button">Pełny ekran</button>
+      </div>
+    </header>
 
-    <div class="toolbar">
-      <button id="reloadBtn">Odśwież z GitHub</button>
-      <label class="file-label">
-        Import CSV
-        <input type="file" id="csvFile" accept=".csv" hidden />
-      </label>
-      <button id="exportBtn">Eksport JSON</button>
-      <button id="copyBtn">Kopiuj JSON</button>
-      <button id="addBtn">Dodaj nauczyciela</button>
-    </div>
+    <section class="panel">
+      <div class="toolbar">
+        <button id="reloadBtn" type="button">Odśwież z GitHub</button>
+        <button id="restoreGithubBtn" type="button">Przywróć dane z GitHub</button>
 
-    <div class="filters">
-      <input type="text" id="filterSchool" placeholder="学校名 / Szkoła" />
-      <input type="text" id="filterGrade" placeholder="年 / Klasa rocznik" />
-      <input type="text" id="filterClass" placeholder="組 / Grupa" />
-      <input type="text" id="filterOther" placeholder="他の / Inne" />
-      <input type="text" id="filterName" placeholder="Imię / Nazwisko" />
-    </div>
+        <label class="file-label">
+          Import CSV
+          <input type="file" id="csvFile" accept=".csv,text/csv" hidden />
+        </label>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>名前</th>
-            <th>学校名</th>
-            <th>年</th>
-            <th>組</th>
-            <th>他の</th>
-            <th>Role</th>
-            <th>Akcje</th>
-          </tr>
-        </thead>
-        <tbody id="teacherTableBody"></tbody>
-      </table>
-    </div>
+        <button id="downloadSampleCsvBtn" type="button">Pobierz przykładowy CSV</button>
+        <button id="exportJsonBtn" type="button">Eksport JSON</button>
+        <button id="exportCsvBtn" type="button">Eksport CSV</button>
+        <button id="copyJsonBtn" type="button">Kopiuj JSON</button>
+        <button id="addBtn" type="button">Dodaj nauczyciela</button>
+      </div>
+    </section>
 
-    <div class="editor">
-      <h2>Edytor JSON</h2>
+    <section class="panel">
+      <div class="filters-header">
+        <h2>Filtry</h2>
+        <div class="filters-actions">
+          <button id="clearFiltersBtn" type="button" class="secondary">Wyczyść filtry</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input type="text" id="filterSchool" placeholder="学校名 / szkoła" />
+        <input type="text" id="filterGrade" placeholder="年 / rok" />
+        <input type="text" id="filterClass" placeholder="組 / grupa" />
+        <input type="text" id="filterOther" placeholder="他の / inne" />
+        <input type="text" id="filterName" placeholder="名前 / imię i nazwisko" />
+        <input type="text" id="filterEmail" placeholder="email / lgate" />
+      </div>
+
+      <div class="status-row">
+        <div id="recordCount">Rekordy: 0</div>
+        <div id="dataStatus">Źródło: —</div>
+      </div>
+    </section>
+
+    <section class="panel desktop-only">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><button class="sort-btn" data-sort="email">Email</button></th>
+              <th><button class="sort-btn" data-sort="name">名前</button></th>
+              <th><button class="sort-btn" data-sort="schoolName">学校名</button></th>
+              <th><button class="sort-btn" data-sort="grade">年</button></th>
+              <th><button class="sort-btn" data-sort="className">組</button></th>
+              <th><button class="sort-btn" data-sort="other">他の</button></th>
+              <th><button class="sort-btn" data-sort="role">Role</button></th>
+              <th>Akcje</th>
+            </tr>
+          </thead>
+          <tbody id="teacherTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel mobile-only">
+      <div id="cardList" class="card-list"></div>
+    </section>
+
+    <section class="panel">
+      <div class="editor-header">
+        <h2>Edytor JSON</h2>
+        <button id="applyJsonBtn" type="button" class="secondary">Wczytaj JSON z pola</button>
+      </div>
       <textarea id="jsonOutput" spellcheck="false"></textarea>
-    </div>
+    </section>
   </div>
 
   <dialog id="teacherDialog">
-    <form id="teacherForm" method="dialog">
+    <form id="teacherForm" method="dialog" class="dialog-form">
       <h3 id="dialogTitle">Dodaj nauczyciela</h3>
 
       <input type="hidden" id="teacherId" />
 
-      <label>Email
+      <label>Email / lgate
         <input type="text" id="email" />
       </label>
 
@@ -88,7 +130,7 @@
       </label>
 
       <div class="dialog-actions">
-        <button type="button" id="cancelBtn">Anuluj</button>
+        <button type="button" id="cancelBtn" class="secondary">Anuluj</button>
         <button type="submit">Zapisz</button>
       </div>
     </form>
