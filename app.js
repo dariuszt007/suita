@@ -3,13 +3,6 @@ const DATA_URL = "./teachers.json";
 let teachers = [];
 let filteredTeachers = [];
 
-/*
-  Multi-sort:
-  [
-    { key: "schoolName", direction: "asc" },
-    { key: "name", direction: "asc" }
-  ]
-*/
 let currentSorts = [
   { key: "name", direction: "asc" }
 ];
@@ -17,7 +10,6 @@ let currentSorts = [
 const teacherTableBody = document.getElementById("teacherTableBody");
 const jsonOutput = document.getElementById("jsonOutput");
 
-const reloadBtn = document.getElementById("reloadBtn");
 const exportBtn = document.getElementById("exportBtn");
 const exportCsvBtn = document.getElementById("exportCsvBtn");
 const copyBtn = document.getElementById("copyBtn");
@@ -314,7 +306,6 @@ teacherForm.addEventListener("submit", (e) => {
 
 cancelBtn.addEventListener("click", () => teacherDialog.close());
 addBtn.addEventListener("click", openAddDialog);
-reloadBtn.addEventListener("click", loadTeachers);
 
 [filterSchool, filterGrade, filterClass].forEach(select => {
   select.addEventListener("change", applyFilters);
