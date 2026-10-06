@@ -125,7 +125,6 @@ th {
   white-space: nowrap;
 }
 
-/* Przyciski sortowania w nagłówkach */
 .sort-btn {
   background: transparent;
   border: none;
@@ -153,7 +152,6 @@ th {
   border-radius: 6px;
 }
 
-/* Przyciski akcji w tabeli */
 .action-btn {
   margin-right: 6px;
   margin-bottom: 4px;
@@ -192,7 +190,6 @@ textarea {
   resize: vertical;
 }
 
-/* Dialog */
 dialog {
   width: min(92vw, 520px);
   border: none;
@@ -233,12 +230,10 @@ dialog::backdrop {
   background: var(--secondary-hover);
 }
 
-/* Lepszy wygląd input file przez label */
 .file-label input[type="file"] {
   display: none;
 }
 
-/* Responsywność */
 @media (max-width: 768px) {
   .app {
     padding: 12px;
