@@ -2,10 +2,17 @@ const DATA_URL = "./teachers.json";
 
 let teachers = [];
 let filteredTeachers = [];
-let currentSort = {
-  key: "name",
-  direction: "asc"
-};
+
+/*
+  Multi-sort:
+  [
+    { key: "schoolName", direction: "asc" },
+    { key: "name", direction: "asc" }
+  ]
+*/
+let currentSorts = [
+  { key: "name", direction: "asc" }
+];
 
 const teacherTableBody = document.getElementById("teacherTableBody");
 const jsonOutput = document.getElementById("jsonOutput");
@@ -133,33 +140,43 @@ function applyFilters() {
 }
 
 function sortFilteredTeachers() {
-  const { key, direction } = currentSort;
-
   filteredTeachers.sort((a, b) => {
-    const aVal = String(a[key] || "").trim();
-    const bVal = String(b[key] || "").trim();
-
-    const aNum = Number(aVal);
-    const bNum = Number(bVal);
-    const bothNumeric = aVal !== "" && bVal !== "" && !Number.isNaN(aNum) && !Number.isNaN(bNum);
-
-    let result;
-    if (bothNumeric) {
-      result = aNum - bNum;
-    } else {
-      result = aVal.localeCompare(bVal, "ja", { sensitivity: "base" });
+    for (const sortRule of currentSorts) {
+      const result = compareValues(a[sortRule.key], b[sortRule.key], sortRule.direction);
+      if (result !== 0) return result;
     }
-
-    return direction === "asc" ? result : -result;
+    return 0;
   });
 }
 
-function setSort(key) {
-  if (currentSort.key === key) {
-    currentSort.direction = currentSort.direction === "asc" ? "desc" : "asc";
+function compareValues(aValue, bValue, direction = "asc") {
+  const aVal = String(aValue || "").trim();
+  const bVal = String(bValue || "").trim();
+
+  const aNum = Number(aVal);
+  const bNum = Number(bVal);
+  const bothNumeric = aVal !== "" && bVal !== "" && !Number.isNaN(aNum) && !Number.isNaN(bNum);
+
+  let result;
+  if (bothNumeric) {
+    result = aNum - bNum;
   } else {
-    currentSort.key = key;
-    currentSort.direction = "asc";
+    result = aVal.localeCompare(bVal, "ja", { sensitivity: "base" });
+  }
+
+  return direction === "asc" ? result : -result;
+}
+
+function setSort(key) {
+  const existingIndex = currentSorts.findIndex(sort => sort.key === key);
+
+  if (existingIndex === 0) {
+    currentSorts[0].direction = currentSorts[0].direction === "asc" ? "desc" : "asc";
+  } else if (existingIndex > 0) {
+    const existing = currentSorts.splice(existingIndex, 1)[0];
+    currentSorts.unshift(existing);
+  } else {
+    currentSorts.unshift({ key, direction: "asc" });
   }
 
   applyFilters();
@@ -170,10 +187,12 @@ function updateSortButtonsUI() {
 
   buttons.forEach(btn => {
     const key = btn.dataset.sort;
-    const isActive = key === currentSort.key;
+    const index = currentSorts.findIndex(sort => sort.key === key);
 
-    if (isActive) {
-      btn.textContent = `${getSortLabel(key)} ${currentSort.direction === "asc" ? "▲" : "▼"}`;
+    if (index >= 0) {
+      const direction = currentSorts[index].direction === "asc" ? "▲" : "▼";
+      const priority = index + 1;
+      btn.textContent = `${getSortLabel(key)} ${direction}${priority}`;
     } else {
       btn.textContent = getSortLabel(key);
     }
