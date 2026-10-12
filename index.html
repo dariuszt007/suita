@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teachers Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <h1>ログイン</h1>
+      <p class="login-text">パスワードを入力してください。</p>
+      <form id="loginForm" class="login-form">
+        <label>
+          パスワード
+          <input
+            id="passwordInput"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+        </label>
+        <button type="submit">ログイン</button>
+        <p id="loginError" class="login-error" hidden>パスワードが違います。</p>
+      </form>
+    </div>
+  </div>
+
+  <main id="appContent" class="app hidden">
+    <section class="list-panel">
+      <div class="topbar">
+        <div class="topbar-header">
+          <h1>Teachers Manager</h1>
+          <p id="syncStatus" class="sync-status"></p>
+          <button id="toggleToolbarBtn" type="button" class="toggle-toolbar-btn">
+            Ukryj przyciski
+          </button>
+        </div>
+
+        <div id="toolbar" class="toolbar">
+          <label class="file-label">
+            CSV import
+            <input id="csvFile" type="file" accept=".csv,text/csv" />
+          </label>
+          <button id="downloadSampleCsvBtn" type="button">CSV sample</button>
+          <button id="exportCsvBtn" type="button">Export CSV</button>
+          <button id="copyBtn" type="button">Copy JSON</button>
+          <button id="reloadJsonBtn" type="button">Reload JSON</button>
+          <button id="clearLocalBtn" type="button">Clear local</button>
+          <button id="addBtn" type="button">Add</button>
+        </div>
+
+        <div class="filters">
+          <select id="filterType">
+            <option value="">学校</option>
+          </select>
+
+          <select id="filterGrade">
+            <option value="">年</option>
+          </select>
+
+          <select id="filterClass">
+            <option value="">組</option>
+          </select>
+
+          <input
+            id="filterName"
+            type="text"
+            placeholder="Szukaj po imieniu, nazwisku, emailu, 備考"
+          />
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><button type="button" class="sort-btn" data-sort="email">Email</button></th>
+              <th><button type="button" class="sort-btn" data-sort="name">名前</button></th>
+              <th><button type="button" class="sort-btn" data-sort="type">学校</button></th>
+              <th><button type="button" class="sort-btn" data-sort="grade">年</button></th>
+              <th><button type="button" class="sort-btn" data-sort="className">組</button></th>
+              <th><button type="button" class="sort-btn" data-sort="remarks">備考</button></th>
+              <th>Akcje</th>
+            </tr>
+          </thead>
+          <tbody id="teacherTableBody"></tbody>
+        </table>
+      </div>
+
+      <section class="editor">
+        <h2>JSON</h2>
+        <textarea id="jsonOutput" readonly></textarea>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="teacherDialog">
+    <form id="teacherForm" method="dialog">
+      <h2 id="dialogTitle">Dodaj wpis</h2>
+
+      <input id="teacherId" type="hidden" />
+
+      <label>
+        Email
+        <input id="email" type="text" />
+      </label>
+
+      <label>
+        名前
+        <input id="name" type="text" />
+      </label>
+
+      <label>
+        学校
+        <select id="type"></select>
+      </label>
+
+      <label>
+        年
+        <input id="grade" type="text" />
+      </label>
+
+      <label>
+        組
+        <input id="className" type="text" />
+      </label>
+
+      <label>
+        備考
+        <input id="remarks" type="text" />
+      </label>
+
+      <div class="dialog-actions">
+        <button id="cancelBtn" type="button">Anuluj</button>
+        <button type="submit">Zapisz</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
