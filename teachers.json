@@ -261,3 +261,418 @@
     "role": "教員"
   }
 ]
+{
+  "id": "5e76a54d-5e98-46ea-850a-9b66da137792",
+  "email": "imamura524@o365.suita.ed.jp",
+  "name": "今村　圭一郎",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "67cb199c-b8af-424d-acaa-34edca6d9886",
+  "email": "tagawa413@o365.suita.ed.jp",
+  "name": "田川　幸希",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "ad3ab86b-00c5-4005-8028-129bf673ed50",
+  "email": "takeuchi360@o365.suita.ed.jp",
+  "name": "竹内　彩華",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "27688a45-cc13-4199-a91d-d4c8bc83be24",
+  "email": "tsutsui041@o365.suita.ed.jp",
+  "name": "筒井　典子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "bcae9cb6-7eb4-485d-8f8e-fadb4b6c08f9",
+  "email": "higashi686@o365.suita.ed.jp",
+  "name": "東　千夏",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "f7352e1b-f048-46e3-8aca-dbb8a53da097",
+  "email": "moriyama681@o365.suita.ed.jp",
+  "name": "森山　ほのか",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "7a629130-576a-4d30-b97d-dbd42c7bf955",
+  "email": "yasuda390@o365.suita.ed.jp",
+  "name": "安田　大樹",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "ab43014e-4cc5-4594-8d74-aef7a3438768",
+  "email": "asaka448@o365.suita.ed.jp",
+  "name": "浅香　武司",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "dfb58ad4-4e5d-4e4f-84af-9c347abee075",
+  "email": "ueda541@o365.suita.ed.jp",
+  "name": "上田　和成",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "73ddcacb-eaa3-4949-9990-f52892ce041f",
+  "email": "gobara944@o365.suita.ed.jp",
+  "name": "郷原　洋一",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "82f149d6-b111-40cb-a80f-a1b7084420dd",
+  "email": "seto594@o365.suita.ed.jp",
+  "name": "瀨戸　純一",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "94aa24b1-ff4f-4311-9fde-20c4c272c0e2",
+  "email": "doi008@o365.suita.ed.jp",
+  "name": "土井　隆夫",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "f0e27f1d-569e-418f-89ab-f4e54f12aca2",
+  "email": "nishimiya280@o365.suita.ed.jp",
+  "name": "西宮　真梨",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "66ad6c74-aee0-407e-bcd3-2a0f42d5dd57",
+  "email": "nishiyama813@o365.suita.ed.jp",
+  "name": "西山　裕香",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "1",
+  "className": "1",
+  "role": "教員"
+},
+{
+  "id": "093aa1e2-0bca-4a47-96bc-d3d0136edc96",
+  "email": "harada642@o365.suita.ed.jp",
+  "name": "原田　敏文",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "aacfde6d-b360-442d-bb3b-31cf7ba125c8",
+  "email": "fukuda795@o365.suita.ed.jp",
+  "name": "福田　蓉子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "ff2d5ddd-424e-45d4-a979-655f59a87b6d",
+  "email": "fujisawa195@o365.suita.ed.jp",
+  "name": "藤澤　亜希子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "778ecf76-4104-4402-bc9d-b576b8300d68",
+  "email": "maeeda944@o365.suita.ed.jp",
+  "name": "前枝　真嘉",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "9976bf83-eeab-4863-b232-a8bbba58f537",
+  "email": "matsushita724@o365.suita.ed.jp",
+  "name": "松下　彩乃",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "9a6e7e8a-c983-44f4-8b9d-00ad542cf8d8",
+  "email": "morishita208@o365.suita.ed.jp",
+  "name": "森下　裕子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "5628db13-97f6-46ac-80a2-6d17dd18fca8",
+  "email": "shibamoto547@o365.suita.ed.jp",
+  "name": "芝本　歩未",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "1",
+  "className": "2",
+  "role": "教員"
+},
+{
+  "id": "901c2b99-5d2f-42fb-ad65-f92bd9a75e6f",
+  "email": "ogawa742@o365.suita.ed.jp",
+  "name": "小川　美幸",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "1",
+  "className": "3",
+  "role": "教員"
+},
+{
+  "id": "34ae4ed6-3655-4a38-b369-d5ade784445c",
+  "email": "nanbu306@o365.suita.ed.jp",
+  "name": "南部　友里香",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "2",
+  "className": "1",
+  "role": "教員"
+},
+{
+  "id": "6f3dbc26-49bb-436b-977f-9fdaff70a16a",
+  "email": "susukida561@o365.suita.ed.jp",
+  "name": "薄田　衣加",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "2",
+  "className": "2",
+  "role": "教員"
+},
+{
+  "id": "71a49ea8-b22d-49cb-8584-aeecb4ed1829",
+  "email": "mori721@o365.suita.ed.jp",
+  "name": "森　樹里亜",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "2",
+  "className": "3",
+  "role": "教員"
+},
+{
+  "id": "3ac16d80-93fb-4e04-b860-729da0cc202c",
+  "email": "dodo992@o365.suita.ed.jp",
+  "name": "百々　真紀子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "3",
+  "className": "1",
+  "role": "教員"
+},
+{
+  "id": "2e712099-32c7-441e-bed4-31788d42daa3",
+  "email": "miyawaki537@o365.suita.ed.jp",
+  "name": "宮脇　拓也",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "理科",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "a080aa94-9414-4516-b790-f7783e400134",
+  "email": "ooyagi390@o365.suita.ed.jp",
+  "name": "大八木　天希",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "3",
+  "className": "2",
+  "role": "教員"
+},
+{
+  "id": "cc528cc6-6251-4de2-a691-ba0aac2e791e",
+  "email": "yamagichi758@o365.suita.ed.jp",
+  "name": "山口　倫羽",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "3",
+  "className": "3",
+  "role": "教員"
+},
+{
+  "id": "aa90d6cb-1e78-44ee-9987-5f50308d2cf9",
+  "email": "ozaki764@o365.suita.ed.jp",
+  "name": "尾﨑　遼太郎",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "4",
+  "className": "1",
+  "role": "教員"
+},
+{
+  "id": "411785ec-a278-4175-86a6-f3c04d8748df",
+  "email": "nobuki020@o365.suita.ed.jp",
+  "name": "延木　拓登",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "英語",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "b651578f-e5d9-41b8-8062-e13de8ec64f3",
+  "email": "ogasahara598@o365.suita.ed.jp",
+  "name": "小笠原　瑞希",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "4",
+  "className": "2",
+  "role": "教員"
+},
+{
+  "id": "d9be7bd8-ae7a-470b-a99a-3a81c34e2dc9",
+  "email": "tachibana029@o365.suita.ed.jp",
+  "name": "橘　さくら",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "4",
+  "className": "3",
+  "role": "教員"
+},
+{
+  "id": "8b7840eb-5f55-4fd8-bb7c-0dfe05208234",
+  "email": "ota312@o365.suita.ed.jp",
+  "name": "太田　範子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "4",
+  "className": "4",
+  "role": "教員"
+},
+{
+  "id": "81a599ea-3854-4d14-9884-fad34b4fe47c",
+  "email": "nishino085@o365.suita.ed.jp",
+  "name": "西野　弘毅",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "5",
+  "className": "1",
+  "role": "教員"
+},
+{
+  "id": "4210a8f7-8d10-4092-838b-78144114b9bb",
+  "email": "kuroda970@o365.suita.ed.jp",
+  "name": "黒田　純子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "8589c30b-b9b4-4752-a55c-7ca68ad92045",
+  "email": "tsuji257@o365.suita.ed.jp",
+  "name": "辻　貴久",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "支援",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "0df0a94e-53cd-4204-945c-d7b8f6fd4723",
+  "email": "miura356@o365.suita.ed.jp",
+  "name": "三浦　花菜",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "5",
+  "className": "2",
+  "role": "教員"
+},
+{
+  "id": "856bc909-2bc0-42ea-bc80-620575596529",
+  "email": "muneta192@o365.suita.ed.jp",
+  "name": "宗田　明莉",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "5",
+  "className": "3",
+  "role": "教員"
+},
+{
+  "id": "f53454bd-6827-41cc-ae74-6167cfc64b46",
+  "email": "kobayashi719@o365.suita.ed.jp",
+  "name": "小林　尚子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "5",
+  "className": "4",
+  "role": "教員"
+},
+{
+  "id": "5894faf6-aad9-4ca0-ab02-37e5fffe1d06",
+  "email": "ishida955@o365.suita.ed.jp",
+  "name": "石田　絵里",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "6",
+  "className": "1",
+  "role": "教員"
+},
+{
+  "id": "5e92b746-89cb-4ae8-8d51-c63b8932cec4",
+  "email": "ichimura865@o365.suita.ed.jp",
+  "name": "市村　真由美",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "理科",
+  "className": "",
+  "role": "教員"
+},
+{
+  "id": "e2e23948-911a-49b7-9b7f-0e0ea0246069",
+  "email": "t-nishimura981@o365.suita.ed.jp",
+  "name": "西村　丹児",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "6",
+  "className": "2",
+  "role": "教員"
+},
+{
+  "id": "951decec-31ac-4114-b7ce-5a9e6740292f",
+  "email": "okajima872@o365.suita.ed.jp",
+  "name": "岡島　涼平",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "6",
+  "className": "3",
+  "role": "教員"
+},
+{
+  "id": "24a54a54-5c18-4d91-b31b-0f43aeffc4a3",
+  "email": "takeda156@o365.suita.ed.jp",
+  "name": "竹田　実由",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "6",
+  "className": "4",
+  "role": "教員"
+},
+{
+  "id": "ea3f14f3-5384-402b-8ad1-e2f04457061a",
+  "email": "sakata056@o365.suita.ed.jp",
+  "name": "坂田　京子",
+  "schoolName": "S05 吹田南小学校",
+  "grade": "理科",
+  "className": "",
+  "role": "教員"
+}
+]
