@@ -54,7 +54,7 @@
 
         <div class="filters">
           <select id="filterType">
-            <option value="">学校</option>
+            <option value="">タイプ</option>
           </select>
 
           <select id="filterGrade">
@@ -65,10 +65,16 @@
             <option value="">組</option>
           </select>
 
+          <select id="filterDuplicate">
+            <option value="">端末番号</option>
+            <option value="duplicate">duplikaty</option>
+            <option value="unique">unikalne</option>
+          </select>
+
           <input
             type="text"
             id="filterName"
-            placeholder="Szukaj po imieniu, nazwisku, emailu, 備考"
+            placeholder="Szukaj po imieniu, nazwisku, emailu, 番, 端末番号, 備考"
           />
         </div>
       </div>
@@ -79,9 +85,12 @@
             <tr>
               <th><button type="button" class="sort-btn" data-sort="email">Email</button></th>
               <th><button type="button" class="sort-btn" data-sort="name">名前</button></th>
-              <th><button type="button" class="sort-btn" data-sort="type">学校</button></th>
+              <th><button type="button" class="sort-btn" data-sort="type">タイプ</button></th>
               <th><button type="button" class="sort-btn" data-sort="grade">年</button></th>
               <th><button type="button" class="sort-btn" data-sort="className">組</button></th>
+              <th><button type="button" class="sort-btn" data-sort="ban">番</button></th>
+              <th><button type="button" class="sort-btn" data-sort="deviceNumber">端末番号</button></th>
+              <th><button type="button" class="sort-btn" data-sort="usageStatus">使用可否</button></th>
               <th><button type="button" class="sort-btn" data-sort="remarks">備考</button></th>
               <th>Akcje</th>
             </tr>
@@ -114,7 +123,7 @@
       </label>
 
       <label>
-        学校
+        タイプ
         <select id="type">
           <option value="予備機">予備機</option>
           <option value="児童・生徒">児童・生徒</option>
@@ -129,6 +138,24 @@
       <label>
         組
         <input type="text" id="className" />
+      </label>
+
+      <label>
+        番
+        <input type="text" id="ban" inputmode="numeric" />
+      </label>
+
+      <label>
+        端末番号
+        <input type="text" id="deviceNumber" inputmode="numeric" />
+      </label>
+
+      <label>
+        使用可否
+        <select id="usageStatus">
+          <option value="使用可">使用可</option>
+          <option value="使用不可">使用不可</option>
+        </select>
       </label>
 
       <label>
