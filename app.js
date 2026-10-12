@@ -24,7 +24,6 @@ const addBtn = document.getElementById("addBtn");
 const filterType = document.getElementById("filterType");
 const filterGrade = document.getElementById("filterGrade");
 const filterClass = document.getElementById("filterClass");
-const filterDuplicate = document.getElementById("filterDuplicate");
 const filterName = document.getElementById("filterName");
 
 const teacherTableBody = document.getElementById("teacherTableBody");
@@ -38,12 +37,9 @@ const cancelBtn = document.getElementById("cancelBtn");
 const teacherIdInput = document.getElementById("teacherId");
 const emailInput = document.getElementById("email");
 const nameInput = document.getElementById("name");
-const typeInput = document.getElementById("type");
+const schoolNameInput = document.getElementById("schoolName");
 const gradeInput = document.getElementById("grade");
 const classNameInput = document.getElementById("className");
-const banInput = document.getElementById("ban");
-const deviceNumberInput = document.getElementById("deviceNumber");
-const usageStatusInput = document.getElementById("usageStatus");
 const remarksInput = document.getElementById("remarks");
 
 const tableHead = document.querySelector(".table-wrap thead");
@@ -67,10 +63,6 @@ function normalizeText(value) {
   return String(value ?? "").trim().toLowerCase();
 }
 
-function normalizeNumberLike(value) {
-  return String(value ?? "").trim();
-}
-
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -80,12 +72,8 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function getTypeBadgeClass(type) {
-  return type === "予備機" ? "type-spare" : "type-student";
-}
-
-function getUsageBadgeClass(status) {
-  return status === "使用可" ? "status-available" : "status-unavailable";
+function getSchoolBadgeClass() {
+  return "type-student";
 }
 
 function updateJsonOutput() {
@@ -212,57 +200,29 @@ function refillSelect(selectElement, values, defaultLabel) {
 }
 
 function populateFilters() {
-  refillSelect(filterType, getUniqueSortedValues("type"), "タイプ");
+  refillSelect(filterType, getUniqueSortedValues("schoolName"), "学校");
   refillSelect(filterGrade, getUniqueSortedValues("grade"), "年");
   refillSelect(filterClass, getUniqueSortedValues("className"), "組");
-}
-
-function getDuplicateDeviceNumbers() {
-  const counts = new Map();
-
-  teachers.forEach(item => {
-    const key = normalizeNumberLike(item.deviceNumber);
-    if (!key) return;
-    counts.set(key, (counts.get(key) || 0) + 1);
-  });
-
-  const duplicates = new Set();
-  counts.forEach((count, key) => {
-    if (count > 1) duplicates.add(key);
-  });
-
-  return duplicates;
 }
 
 function getFilteredTeachers() {
   const selectedType = filterType.value;
   const selectedGrade = filterGrade.value;
   const selectedClass = filterClass.value;
-  const selectedDuplicate = filterDuplicate.value;
   const searchText = normalizeText(filterName.value);
-  const duplicates = getDuplicateDeviceNumbers();
 
   return teachers.filter(item => {
-    if (selectedType && String(item.type ?? "") !== selectedType) return false;
+    if (selectedType && String(item.schoolName ?? "") !== selectedType) return false;
     if (selectedGrade && String(item.grade ?? "") !== selectedGrade) return false;
     if (selectedClass && String(item.className ?? "") !== selectedClass) return false;
-
-    const deviceNumber = normalizeNumberLike(item.deviceNumber);
-    const isDuplicate = duplicates.has(deviceNumber);
-
-    if (selectedDuplicate === "duplicate" && !isDuplicate) return false;
-    if (selectedDuplicate === "unique" && isDuplicate) return false;
 
     if (searchText) {
       const haystack = [
         item.email,
         item.name,
-        item.type,
+        item.schoolName,
         item.grade,
         item.className,
-        item.ban,
-        item.deviceNumber,
-        item.usageStatus,
         item.remarks
       ]
         .map(value => String(value ?? ""))
@@ -284,51 +244,23 @@ function compareValues(a, b) {
 }
 
 function compareStudentOrder(a, b) {
+  const schoolResult = compareValues(a.schoolName, b.schoolName);
+  if (schoolResult !== 0) return schoolResult;
+
   const gradeResult = compareValues(a.grade, b.grade);
   if (gradeResult !== 0) return gradeResult;
 
-  const classResult = compareValues(a.className, b.className);
-  if (classResult !== 0) return classResult;
-
-  return compareValues(a.ban, b.ban);
+  return compareValues(a.className, b.className);
 }
 
 function insertTeacherByTypeRules(teacher) {
-  if (teacher.type === "予備機") {
-    teachers.unshift(teacher);
-    return;
-  }
-
-  if (teacher.type === "児童・生徒") {
-    let insertIndex = teachers.length;
-
-    for (let i = 0; i < teachers.length; i += 1) {
-      const current = teachers[i];
-
-      if (current.type === "予備機") {
-        continue;
-      }
-
-      if (current.type !== "児童・生徒") {
-        insertIndex = i;
-        break;
-      }
-
-      if (compareStudentOrder(teacher, current) < 0) {
-        insertIndex = i;
-        break;
-      }
-    }
-
-    teachers.splice(insertIndex, 0, teacher);
-    return;
-  }
-
   teachers.push(teacher);
 }
 
 function sortTeachers(items) {
-  if (!sortState.length) return [...items];
+  if (!sortState.length) {
+    return [...items].sort(compareStudentOrder);
+  }
 
   return [...items].sort((a, b) => {
     for (const rule of sortState) {
@@ -346,7 +278,6 @@ function hasActiveFilters() {
     filterType.value ||
     filterGrade.value ||
     filterClass.value ||
-    filterDuplicate.value ||
     normalizeText(filterName.value)
   );
 }
@@ -394,13 +325,12 @@ function updateSortButtons() {
 function renderEmptyState() {
   teacherTableBody.innerHTML = `
     <tr>
-      <td colspan="10">Brak danych do wyświetlenia.</td>
+      <td colspan="7">Brak danych do wyświetlenia.</td>
     </tr>
   `;
 }
 
 function renderTable() {
-  const duplicates = getDuplicateDeviceNumbers();
   const filtered = sortTeachers(getFilteredTeachers());
   const dragEnabled = canDragRows();
 
@@ -425,8 +355,6 @@ function renderTable() {
       }, 2000);
     }
 
-    const deviceValue = normalizeNumberLike(teacher.deviceNumber);
-    const isDuplicate = duplicates.has(deviceValue);
     const realIndex = teachers.indexOf(teacher);
 
     if (dragEnabled) {
@@ -442,21 +370,12 @@ function renderTable() {
       <td>${escapeHtml(teacher.email)}</td>
       <td>${escapeHtml(teacher.name)}</td>
       <td>
-        <span class="type-badge ${getTypeBadgeClass(teacher.type)}">
-          ${escapeHtml(teacher.type)}
+        <span class="type-badge ${getSchoolBadgeClass(teacher.schoolName)}">
+          ${escapeHtml(teacher.schoolName)}
         </span>
       </td>
       <td>${escapeHtml(teacher.grade)}</td>
       <td>${escapeHtml(teacher.className)}</td>
-      <td>${escapeHtml(teacher.ban)}</td>
-      <td class="device-cell ${isDuplicate ? "duplicate-device" : ""}">
-        ${escapeHtml(teacher.deviceNumber)}
-      </td>
-      <td>
-        <span class="usage-badge ${getUsageBadgeClass(teacher.usageStatus)}">
-          ${escapeHtml(teacher.usageStatus)}
-        </span>
-      </td>
       <td>${escapeHtml(teacher.remarks)}</td>
       <td>
         <button type="button" class="action-btn edit-btn" data-index="${index}">Edytuj</button>
@@ -478,12 +397,9 @@ function resetForm() {
   teacherIdInput.value = "";
   emailInput.value = "";
   nameInput.value = "";
-  typeInput.value = "予備機";
+  schoolNameInput.value = "J01 第一中学校";
   gradeInput.value = "";
   classNameInput.value = "";
-  banInput.value = "";
-  deviceNumberInput.value = "";
-  usageStatusInput.value = "使用可";
   remarksInput.value = "";
 }
 
@@ -504,12 +420,9 @@ function openEditDialog(filteredIndex) {
   teacherIdInput.value = String(realIndex);
   emailInput.value = teacher.email ?? "";
   nameInput.value = teacher.name ?? "";
-  typeInput.value = teacher.type ?? "予備機";
+  schoolNameInput.value = teacher.schoolName ?? "J01 第一中学校";
   gradeInput.value = teacher.grade ?? "";
   classNameInput.value = teacher.className ?? "";
-  banInput.value = teacher.ban ?? "";
-  deviceNumberInput.value = teacher.deviceNumber ?? "";
-  usageStatusInput.value = teacher.usageStatus ?? "使用可";
   remarksInput.value = teacher.remarks ?? "";
 
   dialogTitle.textContent = "Edytuj nauczyciela";
@@ -520,12 +433,9 @@ function upsertTeacherFromForm() {
   const teacher = {
     email: emailInput.value.trim(),
     name: nameInput.value.trim(),
-    type: typeInput.value,
+    schoolName: schoolNameInput.value,
     grade: gradeInput.value.trim(),
     className: classNameInput.value.trim(),
-    ban: banInput.value.trim(),
-    deviceNumber: deviceNumberInput.value.trim(),
-    usageStatus: usageStatusInput.value,
     remarks: remarksInput.value.trim()
   };
 
@@ -619,12 +529,9 @@ function importCsv(text) {
     return {
       email: cols[mapIndex("email")] ?? "",
       name: cols[mapIndex("name")] ?? "",
-      type: cols[mapIndex("type")] ?? "予備機",
+      schoolName: cols[mapIndex("schoolName")] ?? "J01 第一中学校",
       grade: cols[mapIndex("grade")] ?? "",
       className: cols[mapIndex("className")] ?? "",
-      ban: cols[mapIndex("ban")] ?? "",
-      deviceNumber: cols[mapIndex("deviceNumber")] ?? "",
-      usageStatus: cols[mapIndex("usageStatus")] ?? "使用可",
       remarks: cols[mapIndex("remarks")] ?? ""
     };
   });
@@ -641,16 +548,13 @@ function importCsv(text) {
 
 function exportCsv() {
   const rows = [
-    ["email", "name", "type", "grade", "className", "ban", "deviceNumber", "usageStatus", "remarks"],
+    ["email", "name", "schoolName", "grade", "className", "remarks"],
     ...teachers.map(item => [
       item.email,
       item.name,
-      item.type,
+      item.schoolName,
       item.grade,
       item.className,
-      item.ban,
-      item.deviceNumber,
-      item.usageStatus,
       item.remarks
     ])
   ];
@@ -670,9 +574,9 @@ function exportCsv() {
 
 function downloadSampleCsv() {
   const sampleRows = [
-    ["email", "name", "type", "grade", "className", "ban", "deviceNumber", "usageStatus", "remarks"],
-    ["○○○○@o365.suita.ed.jp", "○○ ○○", "児童・生徒", "1", "1", "1", "12345", "使用可", "サンプル"],
-    ["1", "新予備機", "予備機", "", "", "", "2001", "使用不可", ""]
+    ["email", "name", "schoolName", "grade", "className", "remarks"],
+    ["○○○○@o365.suita.ed.jp", "○○ ○○", "S05 吹田南小学校", "1", "1", "サンプル"],
+    ["1", "山田 太郎", "J01 第一中学校", "2", "3", ""]
   ];
 
   const csv = sampleRows.map(row => row.map(toCsvValue).join(",")).join("\n");
@@ -901,7 +805,7 @@ csvFileInput.addEventListener("change", event => {
   reader.readAsText(file, "utf-8");
 });
 
-[filterType, filterGrade, filterClass, filterDuplicate, filterName].forEach(element => {
+[filterType, filterGrade, filterClass, filterName].forEach(element => {
   element.addEventListener("input", renderTable);
   element.addEventListener("change", renderTable);
 });
