@@ -27,13 +27,12 @@
     "role": "教員"
   },
   {
-    "id": "02b586d0-76e2-479b-b36c-95f06aedfb88",
     "email": "oomagari043@o365.suita.ed.jp",
     "name": "大曲　征一郎",
     "schoolName": "J16 青山台中学校",
     "grade": "3",
     "className": "2-4",
-    "role": "教員"
+    "remarks": "英語"
   },
   {
     "id": "5bf3511f-f88a-45e9-b043-4522281f08b5",
@@ -54,22 +53,20 @@
     "role": "教員"
   },
   {
-    "id": "c9f9a78f-6bb6-44d5-80dd-b1edd78f7b28",
     "email": "okatome358@o365.suita.ed.jp",
     "name": "岡留　鉄心",
     "schoolName": "J16 青山台中学校",
     "grade": "3",
     "className": "4",
-    "role": "教員"
+    "remarks": "英語"
   },
   {
-    "id": "ca95cfb0-5f2c-4e0d-8aa1-aabb39f7883e",
     "email": "akamatsu024@o365.suita.ed.jp",
     "name": "赤松　明吉",
     "schoolName": "J16 青山台中学校",
     "grade": "2",
     "className": "3",
-    "role": "教員"
+    "remarks": "理科"
   },
   {
     "id": "d877be34-d128-45c6-87ef-e6187f71faf5",
@@ -90,13 +87,12 @@
     "role": "教員"
   },
   {
-    "id": "039dd789-c2aa-44f3-bcf8-71d4eed36a7f",
     "email": "ogawa227@o365.suita.ed.jp",
     "name": "小川　ゑみ",
     "schoolName": "J16 青山台中学校",
     "grade": "2",
     "className": "2",
-    "role": "教員"
+    "remarks": "英語"
   },
   {
     "id": "0b7ac721-dec6-47fd-8017-982fc3de1343",
@@ -133,6 +129,14 @@
     "grade": "1",
     "className": "4",
     "role": "教員"
+  },
+  {
+    "email": "rur637@o365.suita.ed.jp",
+    "name": "ルー　賀南子",
+    "schoolName": "J16 青山台中学校",
+    "grade": "1",
+    "className": "1",
+    "remarks": "英語"
   },
   {
     "id": "18c56078-f8e9-4645-9696-8ff4c5ec8283",
@@ -177,15 +181,6 @@
     "schoolName": "J16 青山台中学校",
     "grade": "1",
     "className": "3",
-    "role": "教員"
-  },
-  {
-    "id": "60195ec3-61c9-4404-92df-d3dd4229a64c",
-    "email": "rur637@o365.suita.ed.jp",
-    "name": "ルー　賀南子",
-    "schoolName": "J16 青山台中学校",
-    "grade": "英語",
-    "className": "",
     "role": "教員"
   },
   {
@@ -531,13 +526,12 @@
     "role": "教員"
   },
   {
-    "id": "411785ec-a278-4175-86a6-f3c04d8748df",
     "email": "nobuki020@o365.suita.ed.jp",
     "name": "延木　拓登",
     "schoolName": "S05 吹田南小学校",
     "grade": "英語",
     "className": "",
-    "role": "教員"
+    "remarks": ""
   },
   {
     "id": "b651578f-e5d9-41b8-8062-e13de8ec64f3",
