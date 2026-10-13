@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+  <title>Lista</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+  <div class="app" id="appContent">
+    <section class="list-panel">
+      <div class="topbar">
+        <div class="topbar-header">
+          <button type="button" id="toggleToolbarBtn" class="toggle-toolbar-btn">
+            Ukryj
+          </button>
+          <p id="syncStatus" class="sync-status" aria-live="polite"></p>
+        </div>
+
+        <div class="toolbar" id="toolbar">
+          <label class="file-label">
+            Import CSV
+            <input type="file" id="csvFile" accept=".csv,text/csv" hidden />
+          </label>
+
+          <button type="button" id="downloadSampleCsvBtn">Pobierz przykładowy CSV</button>
+          <button type="button" id="exportCsvBtn">Eksport CSV</button>
+          <button type="button" id="copyBtn">Kopiuj JSON</button>
+          <button type="button" id="reloadJsonBtn">Odśwież z JSON</button>
+          <button type="button" id="clearLocalBtn">Wyczyść localStorage</button>
+          <button type="button" id="addBtn">Dodaj</button>
+        </div>
+
+        <div class="filters">
+          <select id="filterType">
+            <option value="">学校</option>
+          </select>
+
+          <select id="filterGrade">
+            <option value="">年</option>
+          </select>
+
+          <select id="filterClass">
+            <option value="">組</option>
+          </select>
+
+          <input
+            type="text"
+            id="filterName"
+            placeholder="Szukaj po imieniu, nazwisku, emailu, 備考"
+          />
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><button type="button" class="sort-btn" data-sort="email">Email</button></th>
+              <th><button type="button" class="sort-btn" data-sort="name">名前</button></th>
+              <th><button type="button" class="sort-btn" data-sort="schoolName">学校</button></th>
+              <th><button type="button" class="sort-btn" data-sort="grade">年</button></th>
+              <th><button type="button" class="sort-btn" data-sort="className">組</button></th>
+              <th><button type="button" class="sort-btn" data-sort="remarks">備考</button></th>
+              <th>Akcje</th>
+            </tr>
+          </thead>
+          <tbody id="teacherTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="editor">
+      <h2>Edytor JSON</h2>
+      <textarea id="jsonOutput" spellcheck="false"></textarea>
+    </div>
+  </div>
+
+  <dialog id="teacherDialog">
+    <form id="teacherForm">
+      <h3 id="dialogTitle">Dodaj nauczyciela</h3>
+
+      <input type="hidden" id="teacherId" />
+
+      <label>
+        Email / lgate
+        <input type="text" id="email" />
+      </label>
+
+      <label>
+        名前
+        <input type="text" id="name" />
+      </label>
+
+      <label>
+        学校
+        <select id="schoolName">
+          <option value="J01 第一中学校">J01 第一中学校</option>
+          <option value="J02 第二中学校">J02 第二中学校</option>
+          <option value="J03 第三中学校">J03 第三中学校</option>
+          <option value="J04 第五中学校">J04 第五中学校</option>
+          <option value="J05 第六中学校">J05 第六中学校</option>
+          <option value="J06 片山中学校">J06 片山中学校</option>
+          <option value="J07 佐井寺中学校">J07 佐井寺中学校</option>
+          <option value="J08 南千里中学校">J08 南千里中学校</option>
+          <option value="J09 豊津中学校">J09 豊津中学校</option>
+          <option value="J10 豊津西中学校">J10 豊津西中学校</option>
+          <option value="J11 山田中学校">J11 山田中学校</option>
+          <option value="J12 西山田中学校">J12 西山田中学校</option>
+          <option value="J13 山田東中学校">J13 山田東中学校</option>
+          <option value="J14 千里丘中学校">J14 千里丘中学校</option>
+          <option value="J15 高野台中学校">J15 高野台中学校</option>
+          <option value="J16 青山台中学校">J16 青山台中学校</option>
+          <option value="J17 竹見台中学校">J17 竹見台中学校</option>
+          <option value="J18 古江台中学校">J18 古江台中学校</option>
+          <option value="S01 吹田第一小学校">S01 吹田第一小学校</option>
+          <option value="S02 吹田第二小学校">S02 吹田第二小学校</option>
+          <option value="S03 吹田第三小学校">S03 吹田第三小学校</option>
+          <option value="S04 吹田東小学校">S04 吹田東小学校</option>
+          <option value="S05 吹田南小学校">S05 吹田南小学校</option>
+          <option value="S06 吹田第六小学校">S06 吹田第六小学校</option>
+          <option value="S07 千里第一小学校">S07 千里第一小学校</option>
+          <option value="S08 千里第二小学校">S08 千里第二小学校</option>
+          <option value="S09 千里第三小学校">S09 千里第三小学校</option>
+          <option value="S10 千里新田小学校">S10 千里新田小学校</option>
+          <option value="S11 佐井寺小学校">S11 佐井寺小学校</option>
+          <option value="S12 東佐井寺小学校">S12 東佐井寺小学校</option>
+          <option value="S13 岸部第一小学校">S13 岸部第一小学校</option>
+          <option value="S14 岸部第二小学校">S14 岸部第二小学校</option>
+          <option value="S15 豊津第一小学校">S15 豊津第一小学校</option>
+          <option value="S16 豊津第二小学校">S16 豊津第二小学校</option>
+          <option value="S17 江坂大池小学校">S17 江坂大池小学校</option>
+          <option value="S18 山手小学校">S18 山手小学校</option>
+          <option value="S19 片山小学校">S19 片山小学校</option>
+          <option value="S20 山田第一小学校">S20 山田第一小学校</option>
+          <option value="S21 山田第二小学校">S21 山田第二小学校</option>
+          <option value="S22 山田第三小学校">S22 山田第三小学校</option>
+          <option value="S23 山田第五小学校">S23 山田第五小学校</option>
+          <option value="S24 東山田小学校">S24 東山田小学校</option>
+          <option value="S25 南山田小学校">S25 南山田小学校</option>
+          <option value="S26 西山田小学校">S26 西山田小学校</option>
+          <option value="S27 北山田小学校">S27 北山田小学校</option>
+          <option value="S28 千里丘北小学校">S28 千里丘北小学校</option>
+          <option value="S29 佐竹台小学校">S29 佐竹台小学校</option>
+          <option value="S30 高野台小学校">S30 高野台小学校</option>
+          <option value="S31 津雲台小学校">S31 津雲台小学校</option>
+          <option value="S32 古江台小学校">S32 古江台小学校</option>
+          <option value="S33 藤白台小学校">S33 藤白台小学校</option>
+          <option value="S34 青山台小学校">S34 青山台小学校</option>
+          <option value="S35 桃山台小学校">S35 桃山台小学校</option>
+          <option value="S36 千里たけみ小学校">S36 千里たけみ小学校</option>
+        </select>
+      </label>
+
+      <label>
+        年
+        <input type="text" id="grade" />
+      </label>
+
+      <label>
+        組
+        <input type="text" id="className" />
+      </label>
+
+      <label>
+        備考
+        <input type="text" id="remarks" />
+      </label>
+
+      <div class="dialog-actions">
+        <button type="button" id="cancelBtn">Anuluj</button>
+        <button type="submit">Zapisz</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
