@@ -667,5 +667,37 @@
     "grade": "理科",
     "className": "",
     "role": "教員"
+  },
+  {
+    "email": "imamura524@o365.suita.ed.jp",
+    "name": "今村　圭一郎",
+    "schoolName": "S05 吹田南小学校",
+    "grade": "",
+    "className": "",
+    "remarks": "校長先生"
+  },
+  {
+    "email": "yamaguchi669@o365.suita.ed.jp",
+    "name": "山口　亮一",
+    "schoolName": "S05 吹田南小学校",
+    "grade": "",
+    "className": "",
+    "remarks": "教徒先生"
+  },
+  {
+    "email": "tomita036@o365.suita.ed.jp",
+    "name": "冨田　圭",
+    "schoolName": "J16 青山台中学校",
+    "grade": "",
+    "className": "",
+    "remarks": "教徒先生"
+  },
+  {
+    "email": "nishi376@o365.suita.ed.jp",
+    "name": "西　慎一郎",
+    "schoolName": "J16 青山台中学校",
+    "grade": "",
+    "className": "",
+    "remarks": "校長先生"
   }
 ]
