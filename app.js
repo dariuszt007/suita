@@ -913,7 +913,7 @@ async function init() {
   applyResponsiveToolbarState();
 }
 
-loginForm.addEventListener("submit", handleLogin);
+// loginForm.addEventListener("submit", handleLogin);
 
 toggleToolbarBtn.addEventListener("click", toggleToolbar);
 
