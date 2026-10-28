@@ -1,5 +1,5 @@
-const REPO_PATH = "/s05/";
-const SITE_URL = "https://dariuszt007.github.io/s05/";
+const REPO_PATH = "/suita/";
+const SITE_URL = "https://dariuszt007.github.io/suita/";
 
 const auth0Config = {
   domain: "dev-zrgy8kuujx18b5rt.us.auth0.com",
