@@ -87,9 +87,10 @@ const SCHOOL_COLOR_ORDER = [
 
 const loginScreen = document.getElementById("loginScreen");
 const appContent = document.getElementById("appContent");
-const loginForm = document.getElementById("loginForm");
-const passwordInput = document.getElementById("passwordInput");
+
 const loginError = document.getElementById("loginError");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
 
 const toolbar = document.getElementById("toolbar");
 const toggleToolbarBtn = document.getElementById("toggleToolbarBtn");
@@ -816,19 +817,7 @@ function handleTableClick(event) {
   }
 }
 
-function handleLogin(event) {
-  event.preventDefault();
 
-  if (passwordInput.value === PASSWORD) {
-    loginScreen.classList.add("hidden");
-    appContent.classList.remove("hidden");
-    loginError.hidden = true;
-    passwordInput.value = "";
-    return;
-  }
-
-  loginError.hidden = false;
-}
 
 function handleDragStart(event) {
   const row = event.target.closest("tr");
@@ -926,7 +915,6 @@ async function init() {
   applyResponsiveToolbarState();
 }
 
-loginForm.addEventListener("submit", handleLogin);
 
 toggleToolbarBtn.addEventListener("click", toggleToolbar);
 
@@ -979,4 +967,53 @@ cancelBtn.addEventListener("click", () => {
 
 window.addEventListener("resize", applyResponsiveToolbarState);
 
-init();
+async function initAuth() {
+  try {
+    auth0Client = await auth0.createAuth0Client(auth0Config);
+
+    if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+      await auth0Client.handleRedirectCallback();
+      window.history.replaceState({}, document.title, REPO_PATH);
+    }
+
+    const isAuthenticated = await auth0Client.isAuthenticated();
+
+    loginBtn.onclick = async () => {
+      try {
+        loginError.hidden = true;
+        await auth0Client.loginWithRedirect();
+      } catch (e) {
+        loginError.hidden = false;
+        loginError.textContent = "Błąd logowania: " + (e.message || "Spróbuj ponownie.");
+      }
+    };
+
+    logoutBtn.onclick = async () => {
+      try {
+        await auth0Client.logout({
+          logoutParams: { returnTo: SITE_URL }
+        });
+      } catch (e) {
+        loginError.hidden = false;
+        loginError.textContent = "Błąd wylogowania: " + (e.message || JSON.stringify(e));
+        console.error("LOGOUT ERROR", e);
+      }
+    };
+
+    if (isAuthenticated) {
+      loginScreen.classList.add("hidden");
+      appContent.classList.remove("hidden");
+      logoutBtn.hidden = false;
+      init();
+    } else {
+      loginScreen.classList.remove("hidden");
+      appContent.classList.add("hidden");
+      logoutBtn.hidden = true;
+    }
+  } catch (e) {
+    loginError.hidden = false;
+    loginError.textContent = "Błąd Auth0: " + (e.message || "Nie udało się uruchomić logowania.");
+    console.error("AUTH0 ERROR", e);
+  }
+}
+initAuth();
